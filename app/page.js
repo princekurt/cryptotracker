@@ -32,76 +32,73 @@ export default function Home() {
     .filter((coin) =>
       coin.name.toLowerCase().includes(search.toLowerCase())
     )
-    .sort((a, b) => {
-      if (sortBy === "price") return b.current_price - a.current_price;
-      return b.market_cap - a.market_cap;
-    });
+    .sort((a, b) =>
+      sortBy === "price" ? b.current_price - a.current_price : b.market_cap - a.market_cap
+    );
 
   return (
-    <main className="min-h-screen bg-gradient-to-r from-purple-700 via-indigo-700 to-blue-800 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Title */}
-        <h1 className="text-3xl sm:text-4xl font-bold text-center text-white mb-8 drop-shadow-lg">
-          📈 Crypto Tracker
-        </h1>
+    <main className="p-4 sm:p-6 max-w-7xl mx-auto">
+      {/* Title */}
+      <h1 className="text-white text-3xl sm:text-4xl font-bold text-center mb-8 drop-shadow-lg">
+        🔎 CryptoTracker
+      </h1>
 
-        {/* Search */}
-        <input
-          type="text"
-          placeholder="Search cryptocurrency..."
-          className="w-full sm:max-w-md mx-auto block mb-6 p-3 rounded-2xl border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-lg text-sm"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      {/* Search */}
+      <input
+        type="text"
+        placeholder="Search cryptocurrency..."
+        className="w-full sm:max-w-md mx-auto block mb-6 p-3 rounded-2xl border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-lg text-sm"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-        {/* Sort Buttons */}
-        <div className="flex justify-center gap-4 mb-8">
-          <button
-            onClick={() => setSortBy("market_cap")}
-            className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
-              sortBy === "market_cap"
-                ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg hover:scale-105"
-                : "bg-gray-200 text-gray-800 hover:scale-105"
-            }`}
-          >
-            Market Cap
-          </button>
+      {/* Sort Buttons */}
+      <div className="flex justify-center gap-4 mb-8">
+        <button
+          onClick={() => setSortBy("market_cap")}
+          className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
+            sortBy === "market_cap"
+              ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg hover:scale-105"
+              : "bg-gray-200 text-gray-800 hover:scale-105"
+          }`}
+        >
+          Market Cap
+        </button>
 
-          <button
-            onClick={() => setSortBy("price")}
-            className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
-              sortBy === "price"
-                ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg hover:scale-105"
-                : "bg-gray-200 text-gray-800 hover:scale-105"
-            }`}
-          >
-            Price
-          </button>
-        </div>
-
-        {/* Loading */}
-        {loading && (
-          <div className="flex justify-center mt-20">
-            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <p className="text-center text-red-200 mt-10 text-lg font-semibold">
-            ❌ Failed to load data. Please try again later.
-          </p>
-        )}
-
-        {/* Crypto Grid */}
-        {!loading && !error && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {sortedCoins.map((coin) => (
-              <CryptoCard key={coin.id} coin={coin} />
-            ))}
-          </div>
-        )}
+        <button
+          onClick={() => setSortBy("price")}
+          className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
+            sortBy === "price"
+              ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg hover:scale-105"
+              : "bg-gray-200 text-gray-800 hover:scale-105"
+          }`}
+        >
+          Price
+        </button>
       </div>
+
+      {/* Loading */}
+      {loading && (
+        <div className="flex justify-center mt-20">
+          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <p className="text-center text-red-200 mt-10 text-lg font-semibold">
+          ❌ Failed to load data. Please try again later.
+        </p>
+      )}
+
+      {/* Crypto Grid */}
+      {!loading && !error && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {sortedCoins.map((coin) => (
+            <CryptoCard key={coin.id} coin={coin} />
+          ))}
+        </div>
+      )}
     </main>
   );
 }

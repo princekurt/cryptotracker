@@ -24,3 +24,51 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Animated gradient overlay (subtle) */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-animated-gradient {
+  background: linear-gradient(270deg, #000000, #111111, #1a1a1a, #000000);
+  background-size: 800% 800%;
+  animation: gradientShift 30s ease infinite;
+  opacity: 0.7;
+}
+
+/* Floating dots background */
+.bg-dots {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: floatDots 60s linear infinite;
+}
+
+@keyframes floatDots {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, 50px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Floating blurred blobs */
+.bg-blob {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: floatBlob 30s linear infinite alternate;
+}
+
+@keyframes floatBlob {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(100px, -50px); }
+  100% { transform: translate(0, 0); }
+}
+
